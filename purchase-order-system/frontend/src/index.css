@@ -4,9 +4,160 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Urbanist', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hide scrollbars globally but keep functionality */
+* {
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+}
+
+*::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, Opera */
+}
+
+/* Custom animations for shadcn-like UI */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-from-bottom-4 {
+  from {
+    transform: translateY(1rem);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes zoom-in-95 {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-in {
+  animation-duration: 200ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-fill-mode: both;
+}
+
+.fade-in {
+  animation-name: fade-in;
+}
+
+.slide-in-from-bottom-4 {
+  animation-name: slide-in-from-bottom-4;
+}
+
+.zoom-in-95 {
+  animation-name: zoom-in-95;
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slide-out-to-left {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-out {
+  animation-duration: 300ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-fill-mode: both;
+}
+
+.fade-out {
+  animation-name: fade-out;
+}
+
+.slide-out-to-left {
+  animation-name: slide-out-to-left;
+}
+
+/* Peaceful fade out animation */
+@keyframes peaceful-fade-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+}
+
+.peaceful-fade-out {
+  animation: peaceful-fade-out 0.2s ease-out;
+}
+
+/* Skeleton loading animation */
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+}
+
+/* Card deletion animation */
+.card-deleting {
+  animation: card-delete 0.3s ease-out forwards;
+}
+
+@keyframes card-delete {
+  0% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-100%) scale(0.95);
+  }
 }

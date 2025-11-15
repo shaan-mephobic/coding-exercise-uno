@@ -9,17 +9,113 @@ from datetime import date, timedelta
 
 # Sample item names for variety
 ITEM_NAMES = [
-    "Laptop", "Desktop Computer", "Monitor", "Keyboard", "Mouse",
-    "Office Chair", "Desk", "Printer", "Scanner", "Webcam",
-    "Headphones", "Microphone", "USB Cable", "HDMI Cable", "Router",
-    "Switch", "Tablet", "Smartphone", "Hard Drive", "SSD",
-    "RAM Module", "Graphics Card", "Motherboard", "CPU", "Power Supply",
-    "Phone Case", "Screen Protector", "Charging Cable", "Adapter", "Hub",
-    "Docking Station", "Ergonomic Mouse", "Mechanical Keyboard", "Speakers", "Projector",
-    "Whiteboard", "Marker Set", "Notebook", "Pen Set", "Stapler",
-    "Paper Ream", "File Cabinet", "Bookshelf", "Lamp", "Extension Cord",
-    "Surge Protector", "Label Maker", "Calculator", "Shredder", "Coffee Maker"
+    "Laptop",
+    "Desktop Computer",
+    "Monitor",
+    "Keyboard",
+    "Mouse",
+    "Office Chair",
+    "Desk",
+    "Printer",
+    "Scanner",
+    "Webcam",
+    "Headphones",
+    "Microphone",
+    "USB Cable",
+    "HDMI Cable",
+    "Router",
+    "Switch",
+    "Tablet",
+    "Smartphone",
+    "Hard Drive",
+    "SSD",
+    "RAM Module",
+    "Graphics Card",
+    "Motherboard",
+    "CPU",
+    "Power Supply",
+    "Phone Case",
+    "Screen Protector",
+    "Charging Cable",
+    "Adapter",
+    "Hub",
+    "Docking Station",
+    "Ergonomic Mouse",
+    "Mechanical Keyboard",
+    "Speakers",
+    "Projector",
+    "Whiteboard",
+    "Marker Set",
+    "Notebook",
+    "Pen Set",
+    "Stapler",
+    "Paper Ream",
+    "File Cabinet",
+    "Bookshelf",
+    "Lamp",
+    "Extension Cord",
+    "Surge Protector",
+    "Label Maker",
+    "Calculator",
+    "Shredder",
+    "Coffee Maker",
 ]
+
+# Sample statuses
+STATUSES = ["pending", "processing", "shipped", "delivered", "cancelled"]
+
+# Sample vendors
+VENDORS = [
+    "TechCorp Inc.",
+    "Office Supplies Co.",
+    "Global Electronics",
+    "Business Solutions Ltd.",
+    "Digital Warehouse",
+    "Supply Chain Pro",
+    "Enterprise Equipment",
+    "Corporate Goods",
+    "Wholesale Distributors",
+    "Bulk Buyers Inc.",
+    "Prime Suppliers",
+    "Quality Merchants",
+]
+
+# Sample categories
+CATEGORIES = [
+    "Electronics",
+    "Office Supplies",
+    "Furniture",
+    "Computer Hardware",
+    "Peripherals",
+    "Networking",
+    "Storage",
+    "Accessories",
+    "Software",
+]
+
+# Sample descriptions
+DESCRIPTIONS = [
+    "High-quality product with warranty",
+    "Premium grade item",
+    "Standard business model",
+    "Enterprise edition",
+    "Professional series",
+    "Commercial grade",
+    "Bulk purchase item",
+    "Limited edition",
+    "New model 2024",
+    "Refurbished unit",
+]
+
+# Sample addresses
+ADDRESSES = [
+    "123 Business Park, Suite 100, New York, NY 10001",
+    "456 Corporate Blvd, Floor 5, Los Angeles, CA 90001",
+    "789 Industrial Way, Building B, Chicago, IL 60601",
+    "321 Commerce St, Unit 200, Houston, TX 77001",
+    "654 Trade Center, Office 15, Phoenix, AZ 85001",
+]
+
 
 def add_entries(total_entries, batch_size=10000):
     """
@@ -58,13 +154,53 @@ def add_entries(total_entries, batch_size=10000):
                 # Calculate total
                 total_price = round(quantity * unit_price, 2)
 
+                # Random status (weighted towards common statuses)
+                status = random.choices(
+                    STATUSES,
+                    weights=[
+                        30,
+                        25,
+                        20,
+                        20,
+                        5,
+                    ],
+                )[0]
+
+                vendor = (
+                    random.choice(VENDORS) if random.random() > 0.1 else None
+                )
+
+                category = (
+                    random.choice(CATEGORIES) if random.random() > 0.15 else None
+                )
+
+                description = (
+                    random.choice(DESCRIPTIONS) if random.random() > 0.3 else None
+                )
+
+                shipping_address = (
+                    random.choice(ADDRESSES) if random.random() > 0.2 else None
+                )
+
+                notes = (
+                    f"Special instructions: {random.choice(['Rush delivery', 'Handle with care', 'Contact before delivery', 'Leave at front desk', 'Signature required'])}"
+                    if random.random() > 0.6
+                    else None
+                )
+
                 order = PurchaseOrder(
                     item_name=item_name,
                     order_date=order_date,
                     delivery_date=delivery_date,
                     quantity=quantity,
                     unit_price=unit_price,
-                    total_price=total_price
+                    total_price=total_price,
+                    status=status,
+                    vendor=vendor,
+                    category=category,
+                    description=description,
+                    shipping_address=shipping_address,
+                    notes=notes,
                 )
                 batch.append(order)
 
